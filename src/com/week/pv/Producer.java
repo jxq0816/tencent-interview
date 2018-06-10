@@ -1,16 +1,16 @@
 package com.week.pv;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
+
 
 public class Producer implements Runnable {
-    private List<PCData> queue;
+    private Queue<Integer> queue = new LinkedList<Integer>();
     private int length;
 
-    public Producer(List<PCData> queue, int length) {
+    public Producer(Queue<Integer> queue, int length) {
         this.queue = queue;
         this.length = length;
     }
@@ -23,16 +23,14 @@ public class Producer implements Runnable {
                 if (Thread.currentThread().isInterrupted())
                     break;
                 Random r = new Random();
-                long temp = r.nextInt(100);
+                int temp = r.nextInt(100);
                 System.out.println(Thread.currentThread().getId() + " 生产了：" + temp);
-                PCData data = new PCData();
-                data.set(temp);
                 synchronized (queue) {
                     if (queue.size() >= length) {
                         queue.notifyAll();
                         queue.wait();
                     } else
-                        queue.add(data);
+                        queue.add(temp);
                 }
                 Thread.sleep(1000);
             }
