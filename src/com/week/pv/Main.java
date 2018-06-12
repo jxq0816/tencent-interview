@@ -23,7 +23,6 @@ public class Main {
 
         ExecutorService service = Executors.newCachedThreadPool();
         service.execute(p1);
-
         service.execute(c1);
 
     }

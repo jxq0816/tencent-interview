@@ -36,7 +36,6 @@ public class Message {
         HashMap count=new HashMap();
 
         ArrayList array =new ArrayList();
-        Queue<Integer> queue = new LinkedList<Integer>();
 
         FileInputStream inputStream = null;
         Scanner sc = null;
@@ -51,7 +50,7 @@ public class Message {
                         int cnt = (int) count.get(line);
                         cnt++;
                         count.put(line,cnt);
-                        for(int i=0;i<array.size();i++){
+                        for(int i=0;i<array.size();i++){//更新Array
                             Map map = (Map) array.get(i);
                             if(map.get("msg").equals(line)){
                                 map.put("cnt",cnt);
